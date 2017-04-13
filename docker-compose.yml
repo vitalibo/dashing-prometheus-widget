@@ -8,3 +8,13 @@ services:
       - "9090:9090"
     volumes:
       - "./prometheus.yml:/etc/prometheus/prometheus.yml"
+  dashing:
+    image: frvi/dashing
+    container_name: dashing
+    hostname: dashing
+    ports:
+      - "3030:3030"
+    volumes:
+      - "./src:/dashboards"
+    links:
+      - prometheus
