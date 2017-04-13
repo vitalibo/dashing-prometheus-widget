@@ -1,10 +1,13 @@
 require 'net/https'
 require 'json'
+require 'date'
 
 SCHEDULER.every '15s', :first_in => 0 do |job|
   begin
+    now = Time.now.utc
+
     http = Net::HTTP.new('prometheus', 9090)
-    request = Net::HTTP::Get.new('/api/v1/query_range?query=scrape_duration_seconds&start=2017-04-13T00:00:00.000Z&end=2017-04-20T00:00:00.000Z&step=20s')
+    request = Net::HTTP::Get.new('/api/v1/query_range?query=scrape_duration_seconds&start=' +(now - 3 * 3600).strftime("%Y-%m-%dT%H:%M:%S.%LZ") +'&end=' + now.strftime("%Y-%m-%dT%H:%M:%S.%LZ") +'&step=20s')
     response = http.request(request)
 
     points = []
