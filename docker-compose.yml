@@ -16,7 +16,8 @@ services:
       - "3030:3030"
     volumes:
       - "./src/dashboards/prometheus.erb:/dashboards/prometheus.erb"
-      - "./src/jobs/prometheus.rb:/jobs/prometheus.rb"
+      - "./src/jobs/prometheus_job.rb:/jobs/prometheus_job.rb"
       - "./src/widgets/prometheus:/widgets/prometheus"
+      - "./src/lib/prometheus.rb:/lib/prometheus.rb"
     links:
       - prometheus
